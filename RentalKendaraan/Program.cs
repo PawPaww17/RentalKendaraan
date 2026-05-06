@@ -8,6 +8,7 @@ List<Kendaraan> data_kendaraan = new List<Kendaraan>()
 
 while (true)
 {
+    Console.Clear();
     Console.WriteLine("---Rental Paww---");
     Console.WriteLine("\nDaftar kendaraan");
 
@@ -77,6 +78,7 @@ while (true)
     {
         Console.WriteLine("\nPilihan Invalid");
     }
+    Console.ReadLine();
 }
 
 class Kendaraan
@@ -123,10 +125,7 @@ class Kendaraan
     }
     public void tampilkanInfo()
     {
-        Console.WriteLine($"Nama Kendaraan: {_namaKendaraan}");
-        Console.WriteLine($"Harga Sewa Per Hari: {_hargaSewaPerHari}");
-        Console.WriteLine($"Nomer Polisi: {_nomorPolisi}");
-        Console.WriteLine($"Ketersediaan: {(IsAvailable ? "Tersedia" : "Tidak Tersedia")}");
+        Console.WriteLine($"{Nama_Kendaraan} | {Nomor_Polisi} | Rp {Harga_Sewa} / hari | {(Is_Available ? "Tersedia" : "Tidak tersedia")} ");
     }
     public void ubahStatus()
     {
@@ -161,4 +160,3 @@ class miniBuss : Kendaraan
         return base.hitungTotal(jumlahHari) + _biayaSopir;
     }
 }
-
