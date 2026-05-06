@@ -1,8 +1,83 @@
-﻿List<Kendaraan> data_kendaraan = new List<Kendaraan>()
+﻿using Microsoft.VisualBasic;
+
+List<Kendaraan> data_kendaraan = new List<Kendaraan>()
 {
     new Kendaraan("Beat", 3000000, "P 4444 W", true),
     new Mobil("Jhonson", 15000000, "P 4444 W", true)
-};
+};  
+
+while (true)
+{
+    Console.WriteLine("---Rental Paww---");
+    Console.WriteLine("\nDaftar kendaraan");
+
+    foreach (var dk in data_kendaraan)
+    {
+        dk.tampilkanInfo();
+    }
+
+    Console.WriteLine("Pilih Menu :");
+    Console.WriteLine("1. Sewa\n2. Kembali\n3. Keluar");
+    Console.Write("\nPilihan Anda : ");
+    string pilihan = Console.ReadLine();
+
+    if (pilihan == "1")
+    {
+        Console.Write("\nInput nama kendaraan : ");
+        string nama_kendaraan = Console.ReadLine();
+        var cari_kendaraan = data_kendaraan.FirstOrDefault(ck => string.Equals(nama_kendaraan, ck.Nama_Kendaraan, StringComparison.OrdinalIgnoreCase));
+
+        if (cari_kendaraan == null)
+        {
+            Console.WriteLine("Kendaraan tidak ada");
+        }
+        else if (cari_kendaraan.Is_Available)
+        {
+            Console.Write("\nInput jumlah hari sewa : ");
+            int hari = int.Parse(Console.ReadLine());
+
+            double total_sewa = cari_kendaraan.hitungTotal(hari);
+
+            cari_kendaraan.ubahStatus();
+
+            Console.Write($"Total pembayaran sewa : Rp {total_sewa}");
+        }
+        else
+        {
+            Console.WriteLine("Kendaraan tidak tersedia");
+        }
+    }
+    else if (pilihan == "2")
+    {
+        Console.Write("\nInput nama kendaraan : ");
+        string nama_kendaraan = Console.ReadLine();
+        var cari_kendaraan = data_kendaraan.FirstOrDefault(ck => string.Equals(nama_kendaraan, ck.Nama_Kendaraan, StringComparison.OrdinalIgnoreCase));
+
+        if (cari_kendaraan == null)
+        {
+            Console.WriteLine("Kendaraan tidak ada");
+        }
+        else if (!cari_kendaraan.Is_Available)
+        {
+            cari_kendaraan.ubahStatus();
+            Console.WriteLine("Kendaraan Berhasil dikembalikan");
+        }
+        else
+        {
+            Console.WriteLine("\nProses pengembalian tidak bisa dilakukan");
+        }
+    }
+    else if (pilihan == "3")
+    {
+        Console.WriteLine("Tekan Enter Untuk Menutup Aplikasi");
+        Console.ReadLine();
+        break;
+    }
+    else
+    {
+        Console.WriteLine("\nPilihan Invalid");
+    }
+}
 
 class Kendaraan
 {
